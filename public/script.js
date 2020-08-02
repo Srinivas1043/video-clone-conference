@@ -3,7 +3,7 @@ const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
     host: 'adi-dhool.herokuapp.com/',
     secure: true,
-    port: 443,
+    port: process.env.PORT || 3000,
 });
 
 const myVideo = document.createElement('video')
