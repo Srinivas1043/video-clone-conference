@@ -2,7 +2,7 @@ const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
     host: '/',
-    port: '3001'
+    port: 'process.env.PORT || 3001'
 })
 const myVideo = document.createElement('video')
 myVideo.muted = true
@@ -12,9 +12,11 @@ navigator.mediaDevices.getUserMedia({
     audio: true
 }).then(stream => {
     addVideoStream(myVideo, stream)
+    console.log(stream, myVideo)
 
     myPeer.on('call', call => {
-        call.answer(stream)
+        call.answer(stream);
+        console.log(call, 'trying');
         const video = document.createElement('video')
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream)
@@ -36,7 +38,7 @@ myPeer.on('open', id => {
 
 function connectToNewUser(userId, stream) {
     const call = myPeer.call(userId, stream)
-    const video = document.createElement('video')
+    const video = document.createElement('video');
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream)
     })
