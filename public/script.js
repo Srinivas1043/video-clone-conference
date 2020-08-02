@@ -6,7 +6,6 @@ const myPeer = new Peer(undefined, {
 
     port: 443,
 });
-document.write(process.env.PORT);
 const myVideo = document.createElement('video')
 myVideo.muted = true
 const peers = {}
